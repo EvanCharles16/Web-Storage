@@ -16,11 +16,16 @@ const addItem = () => {
     const itemInput = document.getElementsByName("itemInput")
     let itemInputValue = itemInput[0].value
 
+    // Jika tidak diinput value , dia akan return
+    if (!itemInputValue){
+        return ;
+    }
+
     addItemInHTML(itemInputValue)
     let itemArray = localStorage.getItem("item");
 
 
-    if ( itemArray == null ) {
+    if (itemArray == null) {
         //jika itemArray adalah string atau null maka kita bikin array baru dengan key 0 dengan value 
         //itemInputValue
         itemArray = [itemInputValue]
@@ -30,18 +35,26 @@ const addItem = () => {
         itemArray = JSON.parse(itemArray)
         itemArray.push(itemInputValue)
     }
-    // debugger;
-    // localStorage.setItem("item", itemArray);
 
     //merubah array ke string supaya bisa disimpan di local storage
     const itemArrayStringify = JSON.stringify(itemArray);
     localStorage.setItem("item", itemArrayStringify);
+
+    // untuk menghilangkan value yang akan kita ketik
+    itemInput[0].value = ""
 }
 
 const runNow = () => {
-    const item = localStorage.getItem("item")
+    const itemFromLS = localStorage.getItem("item")
 
-    addItemInHTML(item)
+    if (itemFromLS != null) {
+        const items = JSON.parse(itemFromLS);
+
+        items.forEach(item => {
+            addItemInHTML(item)
+        })
+    }
+    
 }
 
 runNow();
