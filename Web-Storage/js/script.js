@@ -6,17 +6,19 @@ const addItemInHTML = (value) => {
 
     const daftarList = document.getElementsByClassName("daftar-list")
     const li = document.createElement("li")
-    const content = document.createTextNode(value)
+
+    const itemHTML = `${value} <button class="js">Hapus</button>`;
 
     daftarList[0].appendChild(li)
-    li.appendChild(content)
+    li.innerHTML = itemHTML
 }
+
 
 const addItem = () => {
     const itemInput = document.getElementsByName("itemInput")
     let itemInputValue = itemInput[0].value
 
-    // Jika tidak diinput value , dia akan return
+    // Jika tidak diinput value , dia akan return/exit
     if (!itemInputValue){
         return ;
     }
